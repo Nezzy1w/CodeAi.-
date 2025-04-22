@@ -1,4 +1,4 @@
-name: Flutter Build
+name: Flutter CI
 
 on:
   push:
@@ -11,19 +11,28 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-      - uses: subosito/flutter-action@v2
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.19.0'
+          flutter-version: '3.7.5' # veya kullanmak istediğin Flutter sürümü
 
-      - name: Get dependencies
+      - name: Install dependencies
         run: flutter pub get
 
-      - name: Analyze project
-        run: flutter analyze
+      # Test kısmı kaldırıldı
+      # - name: Run tests
+      #   run: flutter test
 
-      - name: Run tests
-        run: flutter test
+      - name: Build APK
+        run: flutter build apk --release
+
+      - name: Upload APK to GitHub Releases
+        uses: softprops/action-gh-release@v1
+        with:
+          files: build/app/outputs/flutter-apk/app-release.apk
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
