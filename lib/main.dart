@@ -1,40 +1,20 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(CodeCHATAi());
+  runApp(CodeAiApp());
 }
 
-class CodeCHATAi extends StatelessWidget {
+class CodeAiApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'CodeCHATAi',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData.dark().copyWith(
-        primaryColor: Colors.deepPurple,
-        scaffoldBackgroundColor: Color(0xFF1E1E1E),
-        appBarTheme: AppBarTheme(
-          backgroundColor: Colors.deepPurple,
-        ),
+      title: 'CodeAi',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
       ),
-      home: HomePage(),
-    );
-  }
-}
-
-class HomePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('CodeCHATAi'),
-        centerTitle: true,
-      ),
-      body: Center(
-        child: Text(
-          'Hoş geldin, CodeCHATAi\'a!',
-          style: TextStyle(fontSize: 20),
-        ),
+      home: Scaffold(
+        appBar: AppBar(title: Text("CodeAi")),
+        body: Center(child: Text("Merhaba, bu CodeAi!")),
       ),
     );
   }
