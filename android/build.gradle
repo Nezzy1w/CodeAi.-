@@ -1,19 +1,34 @@
-buildscript {
-    ext.kotlin_version = '1.8.10'
-    repositories {
-        google()
-        mavenCentral()
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'com.google.gms.google-services'
+
+android {
+    namespace "com.example.codeai" // Paket adını kendi uygulamana göre düzenle
+    compileSdkVersion 34
+
+    defaultConfig {
+        applicationId "com.example.codeai" // Paket adını buraya da yaz
+        minSdkVersion 21
+        targetSdkVersion 34
+        versionCode 1
+        versionName "1.0"
+
+        multiDexEnabled true
     }
 
-    dependencies {
-        classpath 'com.android.tools.build:gradle:7.3.0'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    buildTypes {
+        release {
+            minifyEnabled false
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
     }
 }
 
-allprojects {
-    repositories {
-        google()
-        mavenCentral()
-    }
+flutter {
+    source '../..'
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
