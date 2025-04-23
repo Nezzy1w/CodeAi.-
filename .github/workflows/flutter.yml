@@ -1,38 +1,37 @@
-name: Flutter CI
+name: Build Flutter APK
 
 on:
   push:
     branches:
       - main
-  pull_request:
-    branches:
-      - main
+  workflow_dispatch:
 
 jobs:
   build:
+    name: Build APK
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+      - name: Checkout Repository
+        uses: actions/checkout@v3
 
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.7.5' # veya kullanmak istediğin Flutter sürümü
+          flutter-version: '3.19.6'
 
-      - name: Install dependencies
+      - name: Flutter pub get
         run: flutter pub get
 
-      # Test kısmı kaldırıldı
-      # - name: Run tests
-      #   run: flutter test
+      - name: Add meta-data for embedding v2
+        run: |
+          sed -i '/<application/a\        <meta-data android:name="flutterEmbedding" android:value="2"/>' android/app/src/main/AndroidManifest.xml
 
       - name: Build APK
         run: flutter build apk --release
 
-      - name: Upload APK to GitHub Releases
-        uses: softprops/action-gh-release@v1
+      - name: Upload Release APK
+        uses: actions/upload-artifact@v3
         with:
-          files: build/app/outputs/flutter-apk/app-release.apk
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          name: release-apk
+          path: build/app/outputs/flutter-apk/app-release.apk
