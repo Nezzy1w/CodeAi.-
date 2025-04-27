@@ -7,6 +7,7 @@ on:
   pull_request:
     branches:
       - main
+  workflow_dispatch: 
 
 jobs:
   build:
@@ -20,7 +21,7 @@ jobs:
       - name: Install Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.19.5' # Burayı kullandığın Flutter sürümüne göre değiştirebilirsin
+          flutter-version: '3.19.5' 
 
       - name: Install dependencies
         run: flutter pub get
