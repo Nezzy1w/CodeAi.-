@@ -31,4 +31,7 @@ flutter {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    // Flutter v2 embedding eklemek için gerekli satır
+    implementation 'io.flutter:flutter_embedding_debug:2.0.0'
 }
